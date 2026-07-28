@@ -1,15 +1,21 @@
 package engine;
+
 import ui.MainFrame;
 
 public class GameEngine {
 
-    private MainFrame frame;
+    private MainFrame gameFrame;
 
-    public GameEngine() {
-        frame = new MainFrame();
+    public GameEngine(String playerName) {
+
+        gameFrame = new MainFrame(playerName);
+
     }
 
     public void start() {
-        frame.setVisible(true);
+
+        gameFrame.setVisible(true);
+
     }
+
 }

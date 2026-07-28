@@ -1,13 +1,29 @@
 package ui;
+
 import util.Constants;
-import javax.swing.JFrame;
+
+import javax.swing.*;
 
 public class MainFrame extends JFrame {
-    public MainFrame() {
-        setTitle(Constants.GAME_TITLE);
+
+    private GamePanel gamePanel;
+
+    public MainFrame(String playerName) {
+
+        setTitle(Constants.GAME_TITLE + " - " + playerName);
+
         setSize(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setResizable(Constants.RESIZABLE);
+
         setLocationRelativeTo(null);
+
+        setResizable(false);
+
+        gamePanel = new GamePanel();
+
+        add(gamePanel);
+
     }
+
 }
