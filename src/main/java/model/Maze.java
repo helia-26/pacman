@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Maze {
 
-    private static final int TILE_SIZE = 32;
+    public static final int TILE_SIZE = 32;
 
     private static final String[] MAP = {
 
@@ -93,5 +93,60 @@ public class Maze {
         for (Pellet pellet : pellets) {
             pellet.draw(g);
         }
+    }
+
+    public boolean canMove(int x, int y, int width, int height) {
+
+        int left = x;
+        int right = x + width - 1;
+
+        int top = y;
+        int bottom = y + height - 1;
+
+        return isFree(left, top)
+                && isFree(right, top)
+                && isFree(left, bottom)
+                && isFree(right, bottom);
+    }
+
+    private boolean isFree(int x, int y) {
+
+        int col = x / TILE_SIZE;
+        int row = y / TILE_SIZE;
+
+        if (row < 0 || row >= MAP.length ||
+                col < 0 || col >= MAP[0].length()) {
+
+            return false;
+        }
+
+        return MAP[row].charAt(col) != 'X';
+    }
+
+    public Pellet eatPellet(int x, int y) {
+
+        int pacmanCol = (x + 16) / TILE_SIZE;
+        int pacmanRow = (y + 16) / TILE_SIZE;
+
+        for (int i = 0; i < pellets.size(); i++) {
+
+            Pellet pellet = pellets.get(i);
+
+            int pelletCol =
+                    pellet.getPosition().getX() / TILE_SIZE;
+
+            int pelletRow =
+                    pellet.getPosition().getY() / TILE_SIZE;
+
+            if (pacmanCol == pelletCol &&
+                    pacmanRow == pelletRow) {
+
+                pellets.remove(i);
+
+                return pellet;
+            }
+        }
+
+        return null;
     }
 }

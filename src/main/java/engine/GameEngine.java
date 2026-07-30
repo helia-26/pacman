@@ -1,7 +1,7 @@
 package engine;
 
 import model.*;
-
+import util.ScoreManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +13,8 @@ public class GameEngine {
 
     private Maze maze;
 
+    private ScoreManager scoreManager;
+
     public GameEngine() {
 
         pacman = new Pacman(9 * 32, 15 * 32);
@@ -20,6 +22,8 @@ public class GameEngine {
         ghosts = new ArrayList<>();
 
         maze = new Maze();
+
+        scoreManager = new ScoreManager();
 
         ghosts.add(new Ghost(8 * 32, 9 * 32, GhostType.RED));
         ghosts.add(new Ghost(9 * 32, 9 * 32, GhostType.PINK));
@@ -38,6 +42,24 @@ public class GameEngine {
 
     public Maze getMaze() {
         return maze;
+    }
+
+    public void update() {
+
+        pacman.update(maze);
+
+        Pellet pellet = maze.eatPellet(
+                pacman.getPosition().getX(),
+                pacman.getPosition().getY()
+        );
+
+        if (pellet != null) {
+            scoreManager.addScore(pellet.getScore());
+        }
+    }
+
+    public ScoreManager getScoreManager() {
+        return scoreManager;
     }
 
 }
