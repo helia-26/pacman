@@ -1,5 +1,5 @@
 package util;
-
+//یه سایز عمومی
 public final class Constants {
     private Constants(){
 

@@ -1,10 +1,10 @@
 package ui;
+
 import util.Constants;
 import javax.swing.*;
 import java.awt.*;
 import engine.GameEngine;
-import javax.swing.JOptionPane;
-
+//پنل اولیه
 public class WelcomeFrame extends JFrame {
 
     private JLabel titleLabel;
@@ -95,17 +95,14 @@ public class WelcomeFrame extends JFrame {
 
             if(playerName.isEmpty()){
 
-                JOptionPane.showMessageDialog(
-                        this,
-                        "Please enter your name."
-                );
+                JOptionPane.showMessageDialog(this, "Please enter your name.");
 
                 return;
             }
 
-            GameEngine game = new GameEngine(playerName);
+            GameEngine game = new GameEngine();
 
-            game.start();
+            //game.start();
 
             dispose();
 

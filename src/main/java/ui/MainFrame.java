@@ -1,9 +1,8 @@
 package ui;
 
 import util.Constants;
-
 import javax.swing.*;
-
+//اندازه و یه سری طراحیا
 public class MainFrame extends JFrame {
 
     private GamePanel gamePanel;

@@ -1,0 +1,97 @@
+package model;
+
+import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Maze {
+
+    private static final int TILE_SIZE = 32;
+
+    private static final String[] MAP = {
+
+            "XXXXXXXXXXXXXXXXXXX",
+            "XO       X       OX",
+            "X XX XXX X XXX XX X",
+            "X                 X",
+            "X XX X XXXXX X XX X",
+            "X    X       X    X",
+            "X    XXXX XXXX    X",
+            "X XX X       X XX X",
+            "X XX X XXrXX X XX X",
+            "X       bpo       X",
+            "X    X XXXXX X    X",
+            "X XX X       X XX X",
+            "X XX X XXXXX X XX X",
+            "X        X        X",
+            "X XX XXX X XXX XX X",
+            "X  X     P     X  X",
+            "XX X X XXXXX X X XX",
+            "X    X   X   X    X",
+            "X XXXXXX X XXXXXX X",
+            "X O              OX",
+            "XXXXXXXXXXXXXXXXXXX"
+    };
+
+    private List<Wall> walls;
+    private List<Pellet> pellets;
+
+    public Maze() {
+
+        walls = new ArrayList<>();
+        pellets = new ArrayList<>();
+
+        createMaze();
+    }
+
+    private void createMaze() {
+
+        for (int row = 0; row < MAP.length; row++) {
+
+            for (int col = 0; col < MAP[row].length(); col++) {
+
+                char tile = MAP[row].charAt(col);
+
+                Position position =
+                        new Position(
+                                col * TILE_SIZE,
+                                row * TILE_SIZE
+                        );
+
+                switch (tile) {
+
+                    case 'X':
+                        walls.add(new Wall(position));
+                        break;
+
+                    case ' ':
+                        pellets.add(new NormalPellet(position));
+                        break;
+
+                    case 'O':
+                        pellets.add(new PowerPellet(position));
+                        break;
+                }
+            }
+        }
+    }
+
+    public List<Wall> getWalls() {
+        return walls;
+    }
+
+    public List<Pellet> getPellets() {
+        return pellets;
+    }
+
+    public void draw(Graphics g) {
+
+        for (Wall wall : walls) {
+            wall.draw(g);
+        }
+
+        for (Pellet pellet : pellets) {
+            pellet.draw(g);
+        }
+    }
+}
