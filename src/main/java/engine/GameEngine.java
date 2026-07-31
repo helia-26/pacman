@@ -48,6 +48,11 @@ public class GameEngine {
 
         pacman.update(maze);
 
+        for (Ghost ghost : ghosts) {
+
+            ghost.update(maze);
+        }
+
         Pellet pellet = maze.eatPellet(
                 pacman.getPosition().getX(),
                 pacman.getPosition().getY()
