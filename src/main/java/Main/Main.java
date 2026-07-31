@@ -1,13 +1,14 @@
 package Main;
 
 import javax.swing.SwingUtilities;
-import ui.GameFrame;
+import ui.WelcomeFrame;
 
 public class Main {
 
     public static void main(String[] args) {
+
         SwingUtilities.invokeLater(() -> {
-            new GameFrame();
+            new WelcomeFrame();
         });
     }
 }
