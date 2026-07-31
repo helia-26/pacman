@@ -2,34 +2,39 @@ package model;
 
 import util.ImageLoader;
 
+import java.util.Random;
+
 public class Ghost extends Entity {
 
     private GhostType type;
     private Direction direction;
-
     private static final int SPEED = 2;
     private static final int TILE_SIZE = 32;
+    private Random random = new Random();
 
     public Ghost(int x, int y, GhostType type) {
 
         super(new Position(x, y), null);
-
         this.type = type;
         this.direction = Direction.LEFT;
 
         switch (type) {
 
-            case RED ->
-                    image = ImageLoader.load("/image/redGhost.png");
+            case RED:
+                image = ImageLoader.load("/image/redGhost.png");
+                break;
 
-            case PINK ->
-                    image = ImageLoader.load("/image/pinkGhost.png");
+            case PINK:
+                image = ImageLoader.load("/image/pinkGhost.png");
+                break;
 
-            case BLUE ->
-                    image = ImageLoader.load("/image/blueGhost.png");
+            case BLUE:
+                image = ImageLoader.load("/image/blueGhost.png");
+                break;
 
-            case ORANGE ->
-                    image = ImageLoader.load("/image/orangeGhost.png");
+            case ORANGE:
+                image = ImageLoader.load("/image/orangeGhost.png");
+                break;
         }
     }
 
@@ -47,61 +52,65 @@ public class Ghost extends Entity {
 
     public void update(Maze maze) {
 
-        if (isCentered()) {
-
-            chooseDirection(maze);
-        }
-
-        move(maze);
-    }
-
-    private void move(Maze maze) {
-
         int x = position.getX();
         int y = position.getY();
+
+        int newX = x;
+        int newY = y;
 
         switch (direction) {
 
             case UP:
-                y -= SPEED;
+                newY -= SPEED;
                 break;
 
             case DOWN:
-                y += SPEED;
+                newY += SPEED;
                 break;
 
             case LEFT:
-                x -= SPEED;
+                newX -= SPEED;
                 break;
 
             case RIGHT:
-                x += SPEED;
+                newX += SPEED;
                 break;
         }
 
-        if (maze.canMove(x, y, 28, 28)) {
+        if (maze.canMove(newX, newY, 28, 28)) {
+            position = new Position(newX, newY);
+        } else {
 
-            position = new Position(x, y);
+            changeDirection(maze);
+        }
+
+        if (isCentered()) {
+
+            chooseRandomDirection(maze);
         }
     }
 
-    private void chooseDirection(Maze maze) {
+    private void changeDirection(Maze maze) {
 
-        Direction[] directions = Direction.values();
+        chooseRandomDirection(maze);
+    }
 
-        Direction newDirection;
+    private void chooseRandomDirection(Maze maze) {
 
-        do {
+        Direction[] directions = {
+                Direction.UP,
+                Direction.DOWN,
+                Direction.LEFT,
+                Direction.RIGHT
+        };
 
-            newDirection =
-                    directions[(int) (Math.random() * directions.length)];
-
-        } while (
-                newDirection == getOpposite(direction)
-                        || !canMove(newDirection, maze)
-        );
-
-        direction = newDirection;
+        for (int i = 0; i < directions.length; i++) {
+            Direction newDirection = directions[random.nextInt(directions.length)];
+            if (canMove(newDirection, maze)) {
+                direction = newDirection;
+                return;
+            }
+        }
     }
 
     private boolean canMove(Direction direction, Maze maze) {
@@ -127,24 +136,10 @@ public class Ghost extends Entity {
                 x += SPEED;
                 break;
         }
-
         return maze.canMove(x, y, 28, 28);
     }
 
     private boolean isCentered() {
-
-        return position.getX() % TILE_SIZE == 0
-                && position.getY() % TILE_SIZE == 0;
-    }
-
-    private Direction getOpposite(Direction direction) {
-
-        return switch (direction) {
-
-            case UP -> Direction.DOWN;
-            case DOWN -> Direction.UP;
-            case LEFT -> Direction.RIGHT;
-            case RIGHT -> Direction.LEFT;
-        };
+        return position.getX() % TILE_SIZE == 0 && position.getY() % TILE_SIZE == 0;
     }
 }

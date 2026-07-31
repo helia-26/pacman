@@ -1,9 +1,8 @@
 package model;
 
 import java.awt.Graphics;
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.*;
+//نقشه بازی
 public class Maze {
 
     public static final int TILE_SIZE = 32;
@@ -11,15 +10,15 @@ public class Maze {
     private static final String[] MAP = {
 
             "XXXXXXXXXXXXXXXXXXX",
-            "XO       X       OX",
+            "X        X        X",
             "X XX XXX X XXX XX X",
             "X                 X",
             "X XX X XXXXX X XX X",
             "X    X       X    X",
             "X    XXXX XXXX    X",
             "X XX X       X XX X",
-            "X XX X XXrXX X XX X",
-            "X       bpo       X",
+            "X XX X XX XX X XX X",
+            "X       bpro      X",
             "X    X XXXXX X    X",
             "X XX X       X XX X",
             "X XX X XXXXX X XX X",
@@ -29,7 +28,7 @@ public class Maze {
             "XX X X XXXXX X X XX",
             "X    X   X   X    X",
             "X XXXXXX X XXXXXX X",
-            "X O              OX",
+            "X                 X",
             "XXXXXXXXXXXXXXXXXXX"
     };
 
@@ -67,10 +66,6 @@ public class Maze {
                     case ' ':
                         pellets.add(new NormalPellet(position));
                         break;
-
-                    case 'O':
-                        pellets.add(new PowerPellet(position));
-                        break;
                 }
             }
         }
@@ -99,10 +94,9 @@ public class Maze {
 
         int left = x;
         int right = x + width - 1;
-
         int top = y;
         int bottom = y + height - 1;
-
+        //چک کردن چهار گوشه
         return isFree(left, top)
                 && isFree(right, top)
                 && isFree(left, bottom)
@@ -110,39 +104,29 @@ public class Maze {
     }
 
     private boolean isFree(int x, int y) {
-
+        //ستون
         int col = x / TILE_SIZE;
+        //سطر
         int row = y / TILE_SIZE;
 
-        if (row < 0 || row >= MAP.length ||
-                col < 0 || col >= MAP[0].length()) {
-
+        if (row < 0 || row >= MAP.length || col < 0 || col >= MAP[0].length())
+        {
             return false;
         }
-
         return MAP[row].charAt(col) != 'X';
     }
 
     public Pellet eatPellet(int x, int y) {
-
+        //موقعیت پکمن برای خوردن پلت
         int pacmanCol = (x + 16) / TILE_SIZE;
         int pacmanRow = (y + 16) / TILE_SIZE;
 
         for (int i = 0; i < pellets.size(); i++) {
-
             Pellet pellet = pellets.get(i);
-
-            int pelletCol =
-                    pellet.getPosition().getX() / TILE_SIZE;
-
-            int pelletRow =
-                    pellet.getPosition().getY() / TILE_SIZE;
-
-            if (pacmanCol == pelletCol &&
-                    pacmanRow == pelletRow) {
-
+            int pelletCol = pellet.getPosition().getX() / TILE_SIZE;
+            int pelletRow = pellet.getPosition().getY() / TILE_SIZE;
+            if (pacmanCol == pelletCol && pacmanRow == pelletRow) {
                 pellets.remove(i);
-
                 return pellet;
             }
         }

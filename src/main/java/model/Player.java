@@ -1,5 +1,5 @@
 package model;
-
+//حساب کردن امتیاز و ... بازیکن
 public class Player {
 
     private String name;

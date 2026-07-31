@@ -1,10 +1,6 @@
 package model;
 
 public enum Direction {
-
-    UP,
-    DOWN,
-    LEFT,
-    RIGHT
-
+//ثابت برای جهت های حرکت
+    UP, DOWN, LEFT, RIGHT
 }

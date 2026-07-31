@@ -1,5 +1,5 @@
 package model;
-
+//نگهداری مختصات
 public class Position {
 
     private int x;

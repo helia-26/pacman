@@ -22,17 +22,10 @@ public class GamePanel extends JPanel {
 
     public GamePanel() {
 
-        setPreferredSize(
-                new Dimension(
-                        COLS * TILE_SIZE,
-                        ROWS * TILE_SIZE
-                )
-        );
-
+        setPreferredSize(new Dimension(COLS * TILE_SIZE, ROWS * TILE_SIZE));
         setBackground(Color.BLACK);
         setFocusable(true);
         requestFocusInWindow();
-
         engine = new GameEngine();
 
         addKeyListener(new KeyAdapter() {
@@ -62,18 +55,13 @@ public class GamePanel extends JPanel {
         });
 
         Timer timer = new Timer(30, e -> {
-
             engine.update();
-
             repaint();
         });
-
         timer.start();
-
+        setFocusable(true);
         requestFocusInWindow();
     }
-
-
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -82,21 +70,12 @@ public class GamePanel extends JPanel {
 
         // Draw the maze
         engine.getMaze().draw(g);
-
-        // Draw Pacman
         engine.getPacman().draw(g);
-
-        // Draw ghosts
         for (Ghost ghost : engine.getGhosts()) {
             ghost.draw(g);
         }
 
         g.setColor(Color.WHITE);
-
-        g.drawString(
-                "SCORE: " + engine.getScoreManager().getScore(),
-                10,
-                20
-        );
+        g.drawString("SCORE: " + engine.getScoreManager().getScore(), 10, 20);
     }
 }
