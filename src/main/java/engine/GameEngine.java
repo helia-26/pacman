@@ -4,7 +4,6 @@ import database.PlayerDAO;
 import model.*;
 import util.ScoreManager;
 import java.util.*;
-
 public class GameEngine {
 
     private Pacman pacman;
@@ -96,6 +95,10 @@ public class GameEngine {
         }
 
         pacman.update(maze);
+
+        if(pacman.movedTile()){
+            scoreManager.addScore(-1);
+        }
 
         for (Ghost ghost : ghosts) {
             ghost.update(maze);

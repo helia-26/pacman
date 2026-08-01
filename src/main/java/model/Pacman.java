@@ -10,6 +10,7 @@ public class Pacman extends Entity {
 
     private Direction direction;
     private Direction nextDirection;
+    private boolean movedTile;
 
     public Pacman(int x, int y) {
 
@@ -29,18 +30,34 @@ public class Pacman extends Entity {
 
     public void update(Maze maze) {
 
+        movedTile = false;
+
         if (canMove(nextDirection, maze)) {
             direction = nextDirection;
         }
+
+        int oldTileX = position.getX() / TILE_SIZE;
+        int oldTileY = position.getY() / TILE_SIZE;
 
         if (canMove(direction, maze)) {
             move();
         }
 
+        int newTileX = position.getX() / TILE_SIZE;
+        int newTileY = position.getY() / TILE_SIZE;
+
+        if (oldTileX != newTileX || oldTileY != newTileY) {
+            movedTile = true;
+        }
+
         updateImage();
     }
 
-    private void move() {
+    public boolean movedTile(){
+        return movedTile;
+    }
+
+    private void move () {
 
         int x = position.getX();
         int y = position.getY();
@@ -65,6 +82,7 @@ public class Pacman extends Entity {
         }
 
         position = new Position(x, y);
+
     }
 
     private boolean canMove(Direction direction, Maze maze) {
