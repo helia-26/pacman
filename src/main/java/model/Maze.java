@@ -46,16 +46,10 @@ public class Maze {
     private void createMaze() {
 
         for (int row = 0; row < MAP.length; row++) {
-
             for (int col = 0; col < MAP[row].length(); col++) {
-
                 char tile = MAP[row].charAt(col);
 
-                Position position =
-                        new Position(
-                                col * TILE_SIZE,
-                                row * TILE_SIZE
-                        );
+                Position position = new Position(col * TILE_SIZE, row * TILE_SIZE);
 
                 switch (tile) {
 
@@ -125,12 +119,16 @@ public class Maze {
             Pellet pellet = pellets.get(i);
             int pelletCol = pellet.getPosition().getX() / TILE_SIZE;
             int pelletRow = pellet.getPosition().getY() / TILE_SIZE;
+
             if (pacmanCol == pelletCol && pacmanRow == pelletRow) {
                 pellets.remove(i);
                 return pellet;
             }
         }
-
         return null;
+    }
+
+    public boolean isCompleted() {
+        return pellets.isEmpty();
     }
 }

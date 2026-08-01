@@ -19,9 +19,15 @@ public class MainFrame extends JFrame {
 
         setResizable(false);
 
-        gamePanel = new GamePanel();
+        gamePanel = new GamePanel(playerName);
 
         add(gamePanel);
+
+        pack();
+
+        setVisible(true);
+
+        setLocationRelativeTo(null);
 
     }
 

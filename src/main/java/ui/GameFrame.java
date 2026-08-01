@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 
 public class GameFrame extends JFrame {
 
-    public GameFrame() {
+    public GameFrame(String playerName) {
 
         setTitle("Pac-Man");
 
@@ -12,7 +12,7 @@ public class GameFrame extends JFrame {
 
         setResizable(false);
 
-        add(new GamePanel());
+        add(new GamePanel(playerName));
 
         pack();
 

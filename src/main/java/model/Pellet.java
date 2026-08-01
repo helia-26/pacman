@@ -12,4 +12,5 @@ public abstract class Pellet extends Entity {
     public int getScore() {
         return score;
     }
+
 }

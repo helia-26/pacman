@@ -6,10 +6,10 @@ import java.util.Random;
 
 public class Ghost extends Entity {
 
-    private GhostType type;
-    private Direction direction;
     private static final int SPEED = 2;
     private static final int TILE_SIZE = 32;
+    private GhostType type;
+    private Direction direction;
     private Random random = new Random();
 
     public Ghost(int x, int y, GhostType type) {
@@ -80,23 +80,19 @@ public class Ghost extends Entity {
         if (maze.canMove(newX, newY, 28, 28)) {
             position = new Position(newX, newY);
         } else {
-
             changeDirection(maze);
         }
 
         if (isCentered()) {
-
             chooseRandomDirection(maze);
         }
     }
 
     private void changeDirection(Maze maze) {
-
         chooseRandomDirection(maze);
     }
 
     private void chooseRandomDirection(Maze maze) {
-
         Direction[] directions = {
                 Direction.UP,
                 Direction.DOWN,

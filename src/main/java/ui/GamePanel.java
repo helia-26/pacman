@@ -1,10 +1,8 @@
 package ui;
 
-import javax.swing.JPanel;
-import javax.swing.Timer;
+import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import engine.GameEngine;
 import model.*;
 
@@ -15,24 +13,25 @@ public class GamePanel extends JPanel {
     public static final int COLS = 19;
     private GameEngine engine;
     private Timer timer;
+    private String playerName;
 
-    public GamePanel() {
+    public GamePanel(String playerName) {
 
+        this.playerName = playerName;
         setPreferredSize(new Dimension(COLS * TILE_SIZE, ROWS * TILE_SIZE + 45));
         setBackground(Color.BLACK);
         setFocusable(true);
-        engine = new GameEngine();
+        engine = new GameEngine(playerName);
 
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (engine.isGameOver()) {
+                if (engine.isGameOver() || engine.isGameWon()) {
                     if (e.getKeyCode() == KeyEvent.VK_R) {
                         engine.resetGame();
                         requestFocusInWindow();
                         repaint();
                     }
-
                     else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
                         System.exit(0);
                     }
@@ -60,7 +59,7 @@ public class GamePanel extends JPanel {
             }
         });
 
-        timer = new Timer(30, e -> {
+        timer = new Timer(15, e -> {
             engine.update();
             repaint();
         });
@@ -83,29 +82,45 @@ public class GamePanel extends JPanel {
         if (engine.isGameOver()) {
             drawGameOver(g);
         }
+
+        if(engine.isGameWon()){
+            drawWin(g);
+        }
     }
 
     private void drawHUD(Graphics g) {
+
         int hudY = ROWS * TILE_SIZE;
+
         g.setColor(Color.BLACK);
         g.fillRect(0, hudY, getWidth(), 45);
+
         g.setColor(Color.WHITE);
         g.setFont(new Font("Arial", Font.BOLD, 16));
+
         g.drawString("SCORE: " + engine.getScoreManager().getScore(), 10, hudY + 27);
-        g.drawString("LIVES:", 180, hudY + 27);
-        drawLives(g, 235, hudY + 8);
+
+        g.drawString("HIGH SCORE: " + engine.getHighScore(), 130, hudY + 27);
+
+        g.drawString("LIVES:", 300, hudY + 27);
+
+        drawLives(g, 355, hudY + 8);
     }
 
     private void drawLives(Graphics g, int startX, int startY) {
+
         int lives = engine.getLives();
+
         for (int i = 0; i < lives; i++) {
-            drawMiniPacman(g, startX + i * 28, startY);
+            drawMiniPacman(g, startX + i * 25, startY);
         }
     }
 
     private void drawMiniPacman(Graphics g, int x, int y) {
+
         g.setColor(Color.YELLOW);
-        g.fillArc(x, y, 22, 22, 40, 280);
+
+        g.fillArc(x, y, 18, 18, 40, 280);
     }
 
     private void drawGameOver(Graphics g) {
@@ -120,18 +135,51 @@ public class GamePanel extends JPanel {
         int textWidth = g.getFontMetrics().stringWidth(gameOverText);
 
         g.drawString(gameOverText, (width - textWidth) / 2, height / 2 - 45);
-        g.setColor(Color.WHITE);
+        g.setColor(Color.RED);
         g.setFont(new Font("Arial", Font.BOLD, 18));
         String retryText = "Press R to Retry";
 
         int retryWidth = g.getFontMetrics().stringWidth(retryText);
 
         g.drawString(retryText, (width - retryWidth) / 2, height / 2 + 5);
-
         String exitText = "Press ESC to Exit";
 
         int exitWidth = g.getFontMetrics().stringWidth(exitText);
 
         g.drawString(exitText, (width - exitWidth) / 2, height / 2 + 38);
+    }
+
+    private void drawWin(Graphics g) {
+
+        int width = COLS * TILE_SIZE;
+        int height = ROWS * TILE_SIZE;
+
+        g.setColor(new Color(0,0,0,180));
+        g.fillRect(0,0,width,height);
+
+        g.setColor(Color.YELLOW);
+        g.setFont(new Font("Arial",Font.BOLD,40));
+        String text="YOU WIN!";
+
+        int w=g.getFontMetrics().stringWidth(text);
+
+        g.drawString(text,(width-w)/2,height/2-50);
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Arial",Font.BOLD,18));
+        String score="+500 BONUS";
+
+        w=g.getFontMetrics().stringWidth(score);
+
+        g.drawString(score,(width-w)/2,height/2-10);
+        String retry="Press R to Play Again";
+
+        w=g.getFontMetrics().stringWidth(retry);
+
+        g.drawString(retry,(width-w)/2,height/2+30);
+        String exit="Press ESC to Exit";
+
+        w=g.getFontMetrics().stringWidth(exit);
+
+        g.drawString(exit,(width-w)/2,height/2+60);
     }
 }
