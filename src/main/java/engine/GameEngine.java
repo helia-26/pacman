@@ -35,7 +35,6 @@ public class GameEngine {
 
         highScore = playerDAO.getHighScore(playerName);
         savedHighScore = highScore;
-        gameWon = false;
 
         System.out.println("Starting game for: " + playerName);
         System.out.println("Loaded High Score: " + highScore);
@@ -46,6 +45,7 @@ public class GameEngine {
         scoreManager = new ScoreManager();
         lives = MAX_LIVES;
         gameOver = false;
+        gameWon = false;
 
         ghosts.add(new Ghost(8 * 32, 9 * 32, GhostType.RED));
 
@@ -56,9 +56,7 @@ public class GameEngine {
         ghosts.add(new Ghost(11 * 32, 9 * 32, GhostType.ORANGE));
     }
 
-    public Pacman getPacman() {
-        return pacman;
-    }
+    public Pacman getPacman() {return pacman;}
 
     public List<Ghost> getGhosts() {
         return ghosts;
@@ -159,19 +157,6 @@ public class GameEngine {
         return distanceX < 24 && distanceY < 24;
     }
 
-    private void resetPositions() {
-
-        pacman.setPosition(new Position(PACMAN_START_X, PACMAN_START_Y));
-
-        ghosts.get(0).setPosition(new Position(8 * 32, 9 * 32));
-
-        ghosts.get(1).setPosition(new Position(9 * 32, 9 * 32));
-
-        ghosts.get(2).setPosition(new Position(10 * 32, 9 * 32));
-
-        ghosts.get(3).setPosition(new Position(11 * 32, 9 * 32));
-    }
-
     private void saveScore() {
         int currentScore = scoreManager.getScore();
 
@@ -185,9 +170,22 @@ public class GameEngine {
     public void resetGame() {
         lives = MAX_LIVES;
         gameOver = false;
+        gameWon = false;
         scoreManager.reset();
         maze = new Maze();
         resetPositions();
-        gameWon = false;
+    }
+
+    private void resetPositions() {
+
+        pacman.setPosition(new Position(PACMAN_START_X, PACMAN_START_Y));
+
+        ghosts.get(0).setPosition(new Position(8 * 32, 9 * 32));
+
+        ghosts.get(1).setPosition(new Position(9 * 32, 9 * 32));
+
+        ghosts.get(2).setPosition(new Position(10 * 32, 9 * 32));
+
+        ghosts.get(3).setPosition(new Position(11 * 32, 9 * 32));
     }
 }

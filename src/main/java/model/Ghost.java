@@ -38,18 +38,6 @@ public class Ghost extends Entity {
         }
     }
 
-    public GhostType getType() {
-        return type;
-    }
-
-    public Direction getDirection() {
-        return direction;
-    }
-
-    public void setDirection(Direction direction) {
-        this.direction = direction;
-    }
-
     public void update(Maze maze) {
 
         int x = position.getX();
@@ -82,17 +70,9 @@ public class Ghost extends Entity {
         } else {
             changeDirection(maze);
         }
-
-        if (isCentered()) {
-            chooseRandomDirection(maze);
-        }
     }
 
     private void changeDirection(Maze maze) {
-        chooseRandomDirection(maze);
-    }
-
-    private void chooseRandomDirection(Maze maze) {
         Direction[] directions = {
                 Direction.UP,
                 Direction.DOWN,
@@ -133,9 +113,5 @@ public class Ghost extends Entity {
                 break;
         }
         return maze.canMove(x, y, 28, 28);
-    }
-
-    private boolean isCentered() {
-        return position.getX() % TILE_SIZE == 0 && position.getY() % TILE_SIZE == 0;
     }
 }

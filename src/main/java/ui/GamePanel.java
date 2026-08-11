@@ -13,11 +13,9 @@ public class GamePanel extends JPanel {
     public static final int COLS = 19;
     private GameEngine engine;
     private Timer timer;
-    private String playerName;
 
     public GamePanel(String playerName) {
 
-        this.playerName = playerName;
         setPreferredSize(new Dimension(COLS * TILE_SIZE, ROWS * TILE_SIZE + 45));
         setBackground(Color.BLACK);
         setFocusable(true);

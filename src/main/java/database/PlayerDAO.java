@@ -2,8 +2,9 @@ package database;
 
 import java.sql.*;
 //کلاس اصلی درست کننده دیتابیس
+//Data Access Object
 public class PlayerDAO {
-
+    //ساخت جدول
     public void createTable() {
 
         String sql = "CREATE TABLE IF NOT EXISTS players (" +

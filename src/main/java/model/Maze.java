@@ -65,14 +65,6 @@ public class Maze {
         }
     }
 
-    public List<Wall> getWalls() {
-        return walls;
-    }
-
-    public List<Pellet> getPellets() {
-        return pellets;
-    }
-
     public void draw(Graphics g) {
 
         for (Wall wall : walls) {

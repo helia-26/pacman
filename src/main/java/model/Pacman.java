@@ -20,10 +20,6 @@ public class Pacman extends Entity {
         nextDirection = Direction.NONE;
     }
 
-    public Direction getDirection() {
-        return direction;
-    }
-
     public void setNextDirection(Direction direction) {
         this.nextDirection = direction;
     }

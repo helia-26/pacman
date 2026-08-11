@@ -3,9 +3,7 @@
 ## Project Information
 
 - **Project:** Pac-Man
-- **Course:** Advanced Programming
 - **Language:** Java
-- **Architecture:** Object-Oriented Programming (OOP)
 
 ---
 
@@ -79,84 +77,6 @@ src
             └── image
 ```
 
-### Packages
-
-### Main
-Application entry point.
-
-### database
-
-Contains all database classes.
-
-- DatabaseConnection
-- PlayerDAO
-
-Responsible for:
-
-- Creating database connection
-- Creating player table
-- Saving players
-- Reading High Score
-- Updating High Score
-
----
-
-### engine
-
-Contains the game logic.
-
-GameEngine controls:
-
-- Game update loop
-- Collision detection
-- Win condition
-- Lose condition
-- Retry
-- High Score management
-
----
-
-### model
-
-Contains all game entities.
-
-Examples:
-
-- Pacman
-- Ghost
-- Maze
-- Wall
-- Pellet
-- Position
-- Entity
-- Direction
-
----
-
-### ui
-
-Contains graphical user interface.
-
-Classes:
-
-- WelcomeFrame
-- MainFrame
-- GamePanel
-- GameFrame
-
----
-
-### util
-
-Utility classes.
-
-Examples:
-
-- Constants
-- ImageLoader
-- ScoreManager
-
----
 
 # Database
 
@@ -208,42 +128,6 @@ When the game ends:
 
 ---
 
-# Gameplay Features
-
-Implemented features:
-
-- Pac-Man movement
-- Ghost movement
-- Pellet collection
-- Score system
-- High Score system
-- Lives system
-- Win condition
-- Game Over screen
-- Retry (R)
-- Exit (ESC)
-- SQLite database support
-
----
-
-# Images
-
-All game images are stored inside:
-
-```
-src/main/resources/image
-```
-
-Images include:
-
-- Pac-Man
-- Ghosts
-- Walls
-
-They are loaded using the ImageLoader utility class.
-
----
-
 # Git & GitHub
 
 Git was used throughout the development process.
@@ -251,14 +135,6 @@ Git was used throughout the development process.
 The repository was connected to GitHub.
 
 Meaningful commits were used during implementation.
-
-Examples:
-
-- Create Pacman movement
-- Add Ghost AI
-- Connect SQLite database
-- Add High Score system
-- Finish Pacman game project
 
 ---
 
@@ -324,10 +200,3 @@ The database will be created automatically if it does not already exist.
 | ESC | Exit after Game Over |
 
 ---
-
-# Notes
-
-- The game stores only the player's highest score.
-- High Score is persistent between executions.
-- Database is updated only when a new record is achieved.
-- All required libraries are managed by Maven automatically.

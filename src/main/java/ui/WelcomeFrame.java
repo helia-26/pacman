@@ -11,7 +11,7 @@ public class WelcomeFrame extends JFrame {
     private JLabel nameLabel;
     //مکان برای تکست(نوشتن اسم)
     private JTextField nameField;
-    //باتم شروع و خروج
+    //باتن شروع و خروج
     private JButton startButton;
     private JButton exitButton;
     //دیتابیس
@@ -83,6 +83,10 @@ public class WelcomeFrame extends JFrame {
 
             new GameFrame(playerName);
 
+            dispose();
+        });
+
+        exitButton.addActionListener(e -> {
             dispose();
         });
     }

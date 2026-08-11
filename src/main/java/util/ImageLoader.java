@@ -12,8 +12,7 @@ public class ImageLoader {
     public static BufferedImage load(String path) {
 
         try {
-            return ImageIO.read(ImageLoader.class.getResourceAsStream(path)
-            );
+            return ImageIO.read(ImageLoader.class.getResourceAsStream(path));
         } catch (IOException e) {
             throw new RuntimeException("Cannot load image : " + path);
 
